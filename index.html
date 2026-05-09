@@ -379,24 +379,43 @@ RIPPLE EFFECT
 /* =========================
 FOOTER
 ========================= */
+/* FOOTER CONTAINER */
 footer{
   position:fixed;
-  bottom:16px;
+  bottom:18px;
   left:50%;
   transform:translateX(-50%);
 
   display:flex;
+  align-items:center;
   gap:1rem;
+
+  padding:1rem 1.4rem;
+
+  border-radius:40px;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(0,20,45,.92),
+    rgba(0,45,90,.75)
+  );
+
+  border:1px solid rgba(0,183,255,.18);
+
+  backdrop-filter:blur(12px);
+
+  box-shadow:
+  0 0 25px rgba(0,183,255,.18),
+  inset 0 0 20px rgba(0,183,255,.05);
 
   z-index:999;
 }
 
+/* SOCIAL BUTTONS */
 .social{
-  position:relative;
-  overflow:hidden;
-
-  width:48px;
-  height:48px;
+  width:60px;
+  height:60px;
 
   border-radius:50%;
 
@@ -404,15 +423,33 @@ footer{
   justify-content:center;
   align-items:center;
 
-  background:rgba(255,255,255,.04);
+  background:rgba(255,255,255,.06);
 
-  border:1px solid rgba(0,110,255,.2);
+  border:1px solid rgba(0,183,255,.12);
 
-  backdrop-filter:blur(10px);
-
-  transition:.3s;
+  transition:.3s ease;
 }
 
+/* HOVER */
+.social:hover{
+  transform:translateY(-4px) scale(1.05);
+
+  background:
+  linear-gradient(
+    135deg,
+    #006eff,
+    #00b7ff
+  );
+
+  box-shadow:
+  0 0 20px rgba(0,183,255,.35);
+}
+
+/* ICON */
+.social svg{
+  width:24px;
+  fill:white;
+}
 .social:hover{
   background:
   linear-gradient(
@@ -897,17 +934,28 @@ JOIN NOW!
   <input type="text" name="birthday" placeholder="Birthday">
 
   <input type="url" name="facebook" placeholder="Facebook Profile Link">
-<label>Pic For Welcome Banner (Optional)</label>
-<input type="file" id="uploadFile" accept="image/png">
+  
+  <h6>Picture For Welcome Banner (Optional)</h6>
+<label class="upload-box">
+  <input type="file" id="uploadFile" accept="image/png,image/jpeg">
+  <span>Click to Add File</span>
+</label>
 
-<label>CODM Profile with Clantag</label>
-<input type="file" id="uploadFile2" accept="image/png">
+<h6>CODM Profile with Clan Tag Proof*</h6>
+<label class="upload-box">
+  <input type="file" id="uploadFile2" accept="image/png,image/jpeg">
+  <span>Click to Add File</span>
+</label>
 
-  <label>
-    <input type="checkbox"required>I agree to clan rules</label>
+<label class="check-container">
+  <input type="checkbox" required>
+  <span>I agree to clan rules</span>
+</label>
 
-  <label>
-    <input type="checkbox"required>I accept the penalty system</label>
+<label class="check-container">
+  <input type="checkbox" required>
+  <span>I accept the penalty system</span>
+</label>
 
   <button type="submit" class="btn ripple-btn">SUBMIT APPLICATION</button>
 
@@ -1079,6 +1127,97 @@ button:hover::after{
 }
   }
 
+/* CUSTOM FILE UPLOAD */
+.upload-box{
+  position:relative;
+
+  width:100%;
+  height:60px;
+
+  border:2px dashed rgba(0,183,255,.35);
+  border-radius:18px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(0,20,45,.9),
+    rgba(0,40,90,.7)
+  );
+
+  cursor:pointer;
+  overflow:hidden;
+
+  transition:.3s ease;
+}
+
+/* HOVER */
+.upload-box:hover{
+  transform:translateY(-2px);
+
+  border-color:#00b7ff;
+
+  box-shadow:
+  0 0 20px rgba(0,183,255,.25);
+}
+
+/* TEXT */
+.upload-box span{
+  color:white;
+  font-size:.70rem;
+  opacity:.9;
+  pointer-events:none;
+
+  text-shadow:
+  0 0 10px rgba(0,183,255,.35);
+}
+
+/* HIDDEN INPUT */
+.upload-box input{
+  position:absolute;
+  inset:0;
+
+  opacity:0;
+  cursor:pointer;
+}
+
+/* CHECKBOX STYLE */
+.check-container{
+  display:flex;
+  align-items:center;
+  gap:.8rem;
+
+  color:white;
+
+  background:rgba(255,255,255,.03);
+
+  border:1px solid rgba(0,183,255,.15);
+
+  padding:1rem;
+  border-radius:14px;
+
+  width:100%;
+}
+
+/* CHECKBOX */
+.check-container input[type="checkbox"]{
+  width:20px;
+  height:20px;
+
+  accent-color:#00b7ff;
+
+  cursor:pointer;
+
+  flex-shrink:0;
+}
+
+/* TEXT */
+.check-container span{
+  opacity:.9;
+}
 
 </style>
 
@@ -1425,7 +1564,21 @@ document.querySelectorAll('button, nav a, .social').forEach(el => {
   });
 });
 
+document.querySelectorAll('.upload-box input').forEach(input => {
 
+  input.addEventListener('change', function(){
+
+    const text = this.parentElement.querySelector('span');
+
+    if(this.files.length > 0){
+      text.innerText = "✅ " + this.files[0].name;
+    } else {
+      text.innerText = "Click to Add File";
+    }
+
+  });
+
+});
 
 </script>
 
