@@ -949,6 +949,13 @@ JOIN NOW!
   <span>Click to Add File</span>
 </label>
 
+  <h6>Facebook Page Like Proof*</h6>
+<label class="upload-box">
+  <input type="file" id="uploadFile3" accept="image/png,image/jpeg">
+  <span>Click to Add File</span>
+</label>
+
+
 <label class="check-container">
   <input type="checkbox" required>
   <span>I agree to clan rules</span>
@@ -1221,6 +1228,39 @@ button:hover::after{
   opacity:.9;
 }
 
+/* PAGE LOAD ANIMATION */
+body{
+  animation:pageFade 1s ease forwards;
+  opacity:0;
+}
+
+@keyframes pageFade{
+  to{
+    opacity:1;
+  }
+}
+
+#menu-btn span{
+  transition:.4s ease;
+}
+
+#menu-btn.active span:nth-child(1){
+  transform:rotate(45deg) translate(5px,5px);
+}
+
+#menu-btn.active span:nth-child(2){
+  opacity:0;
+}
+
+#menu-btn.active span:nth-child(3){
+  transform:rotate(-45deg) translate(6px,-6px);
+}
+
+.brand-blue {
+  color: #1e90ff;
+  font-weight: bold;
+}
+
 </style>
 
 <!-- APPLY SCRIPT -->
@@ -1242,6 +1282,8 @@ submitBtn.innerHTML = "⏳ Sending...";
 const file = fileInput.files[0];
   const fileInput2 = document.getElementById("uploadFile2");
 const file2 = fileInput2.files[0];
+  const fileInput3 = document.getElementById("uploadFile3");
+const file3 = fileInput3.files[0];
 
 
   // VALIDATION
@@ -1326,7 +1368,7 @@ const file2 = fileInput2.files[0];
           value: data.get("clan_or_commu") || "N/A",
           inline: true
         },
-
+      
       ],
 
       footer:{
@@ -1347,8 +1389,11 @@ const file2 = fileInput2.files[0];
   formData.append("file", file);
 }
 
-if (file2) {
+  if (file2) {
   formData.append("file2", file2);
+}
+  if (file3) {
+  formData.append("file3", file3);
 }
 
   const response = await fetch(webhookURL, {
@@ -1397,10 +1442,11 @@ function showMessage(text){
   msg.style.position = "fixed";
   msg.style.bottom = "20px";
   msg.style.left = "50%";
-  msg.style.transform = "translateX(-50%)";
+  msg.style.transform = "translateX(-50%) translateY(40px)";
+  msg.style.opacity = "0";
 
   msg.style.padding = "1rem 1.5rem";
-  msg.style.borderRadius = "12px";
+  msg.style.borderRadius = "14px";
 
   msg.style.background = "rgba(0,0,0,.9)";
   msg.style.border = "1px solid #00b7ff";
@@ -1409,12 +1455,23 @@ function showMessage(text){
   msg.style.zIndex = "9999";
   msg.style.fontFamily = "Orbitron";
 
+  msg.style.transition = "all .4s ease";
+
   document.body.appendChild(msg);
 
-  setTimeout(() => {
-    msg.remove();
-  }, 3000);
+  setTimeout(()=>{
+    msg.style.opacity="1";
+    msg.style.transform="translateX(-50%) translateY(0)";
+  },10);
 
+  setTimeout(()=>{
+    msg.style.opacity="0";
+    msg.style.transform="translateX(-50%) translateY(40px)";
+  },2500);
+
+  setTimeout(()=>{
+    msg.remove();
+  },3000);
 }
 </script>
 
@@ -1454,9 +1511,8 @@ const menuBtn=document.getElementById('menu-btn');
 const nav=document.getElementById('nav');
 
 menuBtn.addEventListener('click',()=>{
-
-nav.classList.toggle('show');
-
+  nav.classList.toggle('show');
+  menuBtn.classList.toggle('active');
 });
 
 /* SECTION REVEAL */
