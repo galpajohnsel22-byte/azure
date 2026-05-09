@@ -897,8 +897,11 @@ JOIN NOW!
   <input type="text" name="birthday" placeholder="Birthday">
 
   <input type="url" name="facebook" placeholder="Facebook Profile Link">
-<h5>Pic For Welcome Banner (Optional)</h5>
+<label>Pic For Welcome Banner (Optional)</label>
 <input type="file" id="uploadFile" accept="image/png">
+
+<label>CODM Profile with Clantag</label>
+<input type="file" id="uploadFile2" accept="image/png">
 
   <label>
     <input type="checkbox"required>I agree to clan rules</label>
@@ -1075,7 +1078,7 @@ button:hover::after{
   backdrop-filter:blur(10px);
 }
   }
-} 
+
 
 </style>
 
@@ -1084,12 +1087,21 @@ button:hover::after{
 const form = document.querySelector('.join-form');
 
 form.addEventListener('submit', async function(e) {
+  
+  const submitBtn = form.querySelector('button[type="submit"]');
+
+submitBtn.disabled = true;
+submitBtn.innerHTML = "⏳ Sending...";
+  
   e.preventDefault();
 
   const age = parseInt(form.querySelector('input[name="age"]').value);
   const level = parseInt(form.querySelector('input[name="level"]').value);
   const fileInput = document.getElementById("uploadFile");
 const file = fileInput.files[0];
+  const fileInput2 = document.getElementById("uploadFile2");
+const file2 = fileInput2.files[0];
+
 
   // VALIDATION
   if(age < 17){
@@ -1191,8 +1203,12 @@ const file = fileInput.files[0];
   formData.append("payload_json", JSON.stringify(payload));
 
   if (file) {
-    formData.append("file", file);
-  }
+  formData.append("file", file);
+}
+
+if (file2) {
+  formData.append("file2", file2);
+}
 
   const response = await fetch(webhookURL, {
     method: "POST",
@@ -1202,6 +1218,10 @@ const file = fileInput.files[0];
   if (response.ok) {
 
     showMessage("✅ Application submitted successfully!");
+    
+    submitBtn.disabled = false;
+submitBtn.innerHTML = "SUBMIT APPLICATION";
+
     form.reset();
 
   } else {
@@ -1212,6 +1232,9 @@ const file = fileInput.files[0];
 
     console.log("STATUS:", response.status);
     console.log("ERROR:", errorText);
+
+submitBtn.disabled = false;
+submitBtn.innerHTML = "SUBMIT APPLICATION";
 
   }
 
