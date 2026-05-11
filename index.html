@@ -1346,13 +1346,32 @@ body{
 
 <!-- APPLY SCRIPT -->
 <script>
-window.addEventListener("load", () => {
-  showAlert("SYSTEM READY!");
-});
+function showAlert(message){
+  const alert = document.createElement('div');
+  alert.className = 'slide-alert';
+
+  alert.innerHTML = `
+    <span>⚠</span>
+    <p>${message}</p>
+  `;
+
+  document.body.appendChild(alert);
+
+  setTimeout(()=> alert.classList.add('show'), 10);
+
+  setTimeout(()=>{
+    alert.classList.remove('show');
+    setTimeout(()=> alert.remove(), 400);
+  }, 3000);
+}
   
 const COOLDOWN_TIME = 60 * 60 * 1000; // 1 hour
 
 const form = document.querySelector('.join-form');
+
+if (!form) {
+  console.error("Form not found!");
+}
 const submitBtn = document.querySelector('button[type="submit"]');
 let timer;
 
@@ -1394,8 +1413,6 @@ if (lastSubmit) {
   }
 }
   
-const alertBox = document.getElementById('form-alert');
-
 function showAlert(message){
 
   const oldAlert = document.querySelector('.slide-alert');
@@ -1769,6 +1786,10 @@ function showMessage(text){
 }
 
 showAlert("TEST ALERT LOADED");
+
+  window.addEventListener("load", () => {
+  showAlert("SYSTEM READY!");
+});
   
 </script>
 
