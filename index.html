@@ -864,12 +864,6 @@ JOIN NOW!
     <p>Admin</p>
   </div>
 
-  <div class="member-card">
-    <img src="member1.jpg" alt="Member 1">
-    <h3>Zenn</h3>
-    <p>Admin</p>
-  </div>
-
     <div class="member-card">
     <img src="admin3.jpg" alt="Member 1">
     <h3>Smith</h3>
@@ -1346,9 +1340,49 @@ body{
 <!-- APPLY SCRIPT -->
 <script>
 const COOLDOWN_TIME = 60 * 60 * 1000; // 1 hour
-  
-const form = document.querySelector('.join-form');
 
+const form = document.querySelector('.join-form');
+const submitBtn = document.querySelector('button[type="submit"]');
+let timer;
+
+function startCooldownUI(remainingMs) {
+
+  let wait = Math.floor(remainingMs / 1000);
+
+  submitBtn.disabled = true;
+
+  timer = setInterval(() => {
+
+    let hours = Math.floor(wait / 3600);
+    let minutes = Math.floor((wait % 3600) / 60);
+    let seconds = wait % 60;
+
+    submitBtn.innerHTML = `⏳ WAIT ${hours}h ${minutes}m ${seconds}s`;
+
+    wait--;
+
+    if (wait < 0) {
+      clearInterval(timer);
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = "SUBMIT APPLICATION";
+      localStorage.removeItem("azureCooldown");
+    }
+
+  }, 1000);
+}
+
+const lastSubmit = localStorage.getItem("azureCooldown");
+
+if (lastSubmit) {
+  const remaining = COOLDOWN_TIME - (Date.now() - lastSubmit);
+
+  if (remaining > 0) {
+    startCooldownUI(remaining);
+  } else {
+    localStorage.removeItem("azureCooldown");
+  }
+}
+  
 const alertBox = document.getElementById('form-alert');
 
 function showAlert(message){
@@ -1647,8 +1681,8 @@ const timer = setInterval(() => {
 successSound.currentTime = 0;
 successSound.play().catch(()=>{});
     
-    submitBtn.disabled = false;
-submitBtn.innerHTML = "SUBMIT APPLICATION";
+    localStorage.setItem("azureCooldown", Date.now());
+startCooldownUI(COOLDOWN_TIME);
 
     form.reset();
 
