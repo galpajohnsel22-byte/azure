@@ -1580,45 +1580,51 @@ submitBtn.innerHTML = "⏳ Sending...";
   const webhookURL = "https://discord.com/api/webhooks/1502495712401948852/cF4QZS4FcDln8a08tYyQOX-dDmQz2h0lI4udJI8LX2Jmhm5K1J5WeUVBg8FdLw7u0iHh";
 
   const payload = {
-    content: "🔥 NEW AZURE XENO APPLICATION",
-    embeds: [{
-      title: "Clan Recruitment Application",
-      color: 3447003,
+  username: "Azure Xeno System",
+  avatar_url: "https://imgur.com/a/9oYrJSg", // optional
+
+  embeds: [
+    {
+      title: "🚀 NEW RECRUITMENT APPLICATION",
+      color: 0x00b7ff,
+
+      description:
+        "A new applicant has submitted their form to **Azure Xeno**. Please review the details below.",
+
+      thumbnail: {
+        url: "https://i.imgur.com/yourthumbnail.png" // optional clan logo
+      },
 
       fields: [
         {
           name: "👤 Full Name",
-          value: data.get("fullname") || "N/A",
+          value: `\`${data.get("fullname") || "N/A"}\``,
           inline: true
         },
-
         {
           name: "🎮 IGN",
-          value: data.get("ign") || "N/A",
+          value: `\`${data.get("ign") || "N/A"}\``,
           inline: true
         },
-
         {
           name: "🆔 UID",
-          value: data.get("uid") || "N/A",
+          value: `\`${data.get("uid") || "N/A"}\``,
           inline: true
         },
 
-        { 
-          name: "🎂Age",
-          value: data.get("age") || "N/A",
+        {
+          name: "🎂 Age",
+          value: `\`${data.get("age") || "N/A"}\``,
           inline: true
         },
-
         {
           name: "⭐ Level",
-          value: data.get("level") || "N/A",
+          value: `\`${data.get("level") || "N/A"}\``,
           inline: true
         },
-
         {
           name: "🎯 Game Mode",
-          value: data.get("gamemode") || "N/A",
+          value: `\`${data.get("gamemode") || "N/A"}\``,
           inline: true
         },
 
@@ -1628,32 +1634,31 @@ submitBtn.innerHTML = "⏳ Sending...";
         },
 
         {
-          name: "🎂Birthday!",
-          value: data.get("birthday") || "N/A",
+          name: "🎮 Playstyle",
+          value: `\`${data.get("playstyle") || "N/A"}\``,
           inline: true
         },
 
-{
-          name: "⏹️Casual or Competitive",
-          value: data.get("playstyle") || "N/A",
+        {
+          name: "🏷 Clan Type",
+          value: `\`${data.get("clan_or_commu") || "N/A"}\``,
           inline: true
-        },
-
-{
-          name: "🟦Clan or Community",
-          value: data.get("clan_or_commu") || "N/A",
-          inline: true
-        },
-      
+        }
       ],
 
-      footer:{
-        text:"Azure Xeno Recruitment System"
+      image: {
+        url: "https://imgur.com/a/ZHSC3jw" // optional banner
       },
 
-      timestamp:new Date()
-    }]
-  };
+      footer: {
+        text: "Azure Xeno Recruitment System • Auto Verified",
+        icon_url: "https://imgur.com/a/9oYrJSg"
+      },
+
+      timestamp: new Date()
+    }
+  ]
+};
 
   try {
 
