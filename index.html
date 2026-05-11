@@ -718,14 +718,6 @@ GLITCH LOGO
 </div>
 
 <body>
-
-  <div id="cooldown-popup" class="popup">
-  <div class="popup-box">
-    <h3>⏳ Cooldown Active</h3>
-    <p>Please wait before submitting again.</p>
-    <button id="close-popup">OK</button>
-  </div>
-  </div>
   
   <!-- COOKIE NOTICE -->
 <div id="cookie-box">
@@ -1349,46 +1341,6 @@ body{
   box-shadow:0 0 15px rgba(255,0,0,.4);
 }
 
-  .popup{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:99999;
-}
-
-.popup.show{
-  display:flex;
-}
-
-.popup-box{
-  background:rgba(2,8,20,.95);
-  border:1px solid #00b7ff;
-  padding:2rem;
-  border-radius:16px;
-  text-align:center;
-  color:white;
-  width:280px;
-  box-shadow:0 0 25px rgba(0,183,255,.3);
-  animation:pop .3s ease;
-}
-
-@keyframes pop{
-  from{transform:scale(.7);opacity:0;}
-  to{transform:scale(1);opacity:1;}
-}
-
-.popup-box button{
-  margin-top:1rem;
-  padding:.6rem 1rem;
-  border:none;
-  border-radius:10px;
-  background:linear-gradient(135deg,#006eff,#00b7ff);
-  color:white;
-  cursor:pointer;
-}
 
 </style>
 
@@ -1476,16 +1428,6 @@ function showAlert(message){
 
 form.addEventListener('submit', async function(e) {
 
-  const lastSubmit = localStorage.getItem("azureCooldown");
-
-if(lastSubmit && Date.now() - lastSubmit < COOLDOWN_TIME){
-
-  e.preventDefault();
-
-  showCooldownPopup();
-
-  return;
-}
 
   const lastSubmit = localStorage.getItem("azureCooldown");
 
