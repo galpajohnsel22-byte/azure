@@ -1766,15 +1766,16 @@ function showMessage(text){
 const closePopup = document.getElementById("close-popup");
 
 function showCooldownPopup(){
-  popup.classList.add("show");
+  if(popup) popup.classList.add("show");
 }
 
 function hideCooldownPopup(){
-  popup.classList.remove("show");
+  if(popup) popup.classList.remove("show");
 }
 
-closePopup.addEventListener("click", hideCooldownPopup);
-  
+if(closePopup){
+  closePopup.addEventListener("click", hideCooldownPopup);
+}
 </script>
 
 <!-- FOOTER -->
