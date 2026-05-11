@@ -1432,10 +1432,11 @@ function showAlert(message){
 
 form.addEventListener('submit', async function(e) {
 
-
-  const lastSubmit = localStorage.getItem("azureCooldown");
+const lastSubmit = Number(localStorage.getItem("azureCooldown"));
 
 if(lastSubmit && Date.now() - lastSubmit < COOLDOWN_TIME){
+
+  e.preventDefault();
 
   const remaining = COOLDOWN_TIME - (Date.now() - lastSubmit);
 
