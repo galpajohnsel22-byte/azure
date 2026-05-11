@@ -1345,6 +1345,8 @@ body{
 
 <!-- APPLY SCRIPT -->
 <script>
+const COOLDOWN_TIME = 60 * 60 * 1000; // 1 hour
+  
 const form = document.querySelector('.join-form');
 
 const alertBox = document.getElementById('form-alert');
@@ -1384,6 +1386,19 @@ function showAlert(message){
 }
 
 form.addEventListener('submit', async function(e) {
+
+  const lastSubmit = localStorage.getItem("azureCooldown");
+
+if(lastSubmit && Date.now() - lastSubmit < COOLDOWN_TIME){
+
+  const remaining = COOLDOWN_TIME - (Date.now() - lastSubmit);
+
+  const minutes = Math.ceil(remaining / 60000);
+
+  showAlert(`⏳ Please wait ${minutes} minute(s) before submitting again.`);
+
+  return;
+}
 
   e.preventDefault();
 
@@ -1598,6 +1613,32 @@ submitBtn.innerHTML = "⏳ Sending...";
   });
 
   if (response.ok) {
+
+    localStorage.setItem("azureCooldown", Date.now());
+
+    let wait = 60 * 60; // 1 hour in seconds
+
+submitBtn.disabled = true;
+
+const originalText = "SUBMIT APPLICATION";
+
+const timer = setInterval(() => {
+
+  let hours = Math.floor(wait / 3600);
+  let minutes = Math.floor((wait % 3600) / 60);
+  let seconds = wait % 60;
+
+  submitBtn.innerHTML = `⏳ WAIT ${hours}h ${minutes}m ${seconds}s`;
+
+  wait--;
+
+  if(wait < 0){
+    clearInterval(timer);
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalText;
+  }
+
+}, 1000);
 
     showMessage("✅ Application submitted successfully!");
     
