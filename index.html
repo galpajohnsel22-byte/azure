@@ -1346,6 +1346,10 @@ body{
 
 <!-- APPLY SCRIPT -->
 <script>
+window.addEventListener("load", () => {
+  showAlert("SYSTEM READY");
+});
+  
 const COOLDOWN_TIME = 60 * 60 * 1000; // 1 hour
 
 const form = document.querySelector('.join-form');
