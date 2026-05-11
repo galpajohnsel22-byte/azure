@@ -7,7 +7,7 @@
 <title>Azure Xeno</title>
 
 <link rel="icon" href="logo.jpg" title="azure xeno" type="image/jpg" />
-  
+
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
@@ -304,7 +304,8 @@ SECTIONS
   0 0 15px rgba(255,255,255,.1),
   0 0 40px rgba(0,110,255,.7),
   0 0 70px rgba(0,183,255,.35);
-}
+  
+  }
 
 .section h1 span{
   color:var(--blue2);
@@ -730,6 +731,8 @@ GLITCH LOGO
 
 <audio id="click-sound" src="click.mp3" preload="auto"></audio>
 
+<audio id="success-sound" src="ting.mp3" preload="auto"></audio>
+
 <!-- PARTICLES -->
 <script>
 const cookieBox = document.getElementById('cookie-box');
@@ -817,7 +820,7 @@ document.addEventListener('keydown', startMusic);
 <!-- HOME -->
 <section class="section show" id="home">
 
-<h1>AZURE <span>XENO</span></h1>
+<h1>AZURE <span class="brand-blue">XENO</span></h1>
 
 <p>
 Welcome to the elite gaming organization built for champions.
@@ -833,7 +836,7 @@ JOIN NOW!
 <!-- MANAGEMENT -->
 <section class="section" id="management">
 
-<h1>CLAN <span>MANAGEMENT</span></h1>
+<h1>CLAN <span class="brand-blue">MANAGEMENT</span></h1>
 
 <div class="members-container">
 
@@ -856,13 +859,13 @@ JOIN NOW!
   </div>
   
     <div class="member-card">
-    <img src="admin1.jpeg" alt="Member 1">
-    <h3>Aika</h3>
+    <img src="admin2.jpeg" alt="Member 1">
+    <h3>Zenn</h3>
     <p>Admin</p>
   </div>
 
   <div class="member-card">
-    <img src="admin2.jpeg" alt="Member 1">
+    <img src="member1.jpg" alt="Member 1">
     <h3>Zenn</h3>
     <p>Admin</p>
   </div>
@@ -870,7 +873,7 @@ JOIN NOW!
     <div class="member-card">
     <img src="admin3.jpg" alt="Member 1">
     <h3>Smith</h3>
-    <p>Clan Master</p>
+    <p>Admin</p>
   </div>
 
   <div class="member-card">
@@ -882,7 +885,7 @@ JOIN NOW!
     <div class="member-card">
     <img src="admin5.jpeg" alt="Member 1">
     <h3>Mark</h3>
-    <p>Vice-Clan Master</p>
+    <p>Admin</p>
   </div>
 
 
@@ -902,17 +905,17 @@ JOIN NOW!
 ⚠ Please ensure you meet the minimum requirements: Age 17+, Level 400+, and active player. If not applicable, type N/A.
 </div>
 
-<form class="join-form">
+<form class="join-form" novalidate>
 
   <input type="text" name="fullname" placeholder="Full Name *" required>
 
   <input type="text" name="ign" placeholder="In-Game IGN *" required>
 
-  <input type="text" name="uid" placeholder="UID">
+  <input type="text" name="uid" placeholder="UID" required>
 
   <input type="number" name="age" placeholder="Age (17+)" required>
 
-  <input type="number" name="level" placeholder="Player Level (400+)" required>
+  <input type="number" name="level" placeholder="Player Level (150+)" required>
 
   <select name="clan_or_commu" required>
     <option value="">Clan or Community?</option>
@@ -933,9 +936,9 @@ JOIN NOW!
     <option>Competitive</option>
   </select>
 
-  <input type="text" name="birthday" placeholder="Birthday">
+  <input type="text" name="birthday" placeholder="Birthday" required>
 
-  <input type="url" name="facebook" placeholder="Facebook Profile Link">
+  <input type="url" name="facebook" placeholder="Facebook Profile Link" required>
   
   <h6>Picture For Welcome Banner (Optional)</h6>
 <label class="upload-box">
@@ -945,13 +948,13 @@ JOIN NOW!
 
 <h6>CODM Profile with Clan Tag Proof*</h6>
 <label class="upload-box">
-  <input type="file" id="uploadFile2" accept="image/png,image/jpeg">
+  <input type="file" id="uploadFile2" accept="image/png,image/jpeg" required>
   <span>Click to Add File</span>
 </label>
 
-  <h6>Facebook Page Like Proof*</h6>
+<h6>Facebook Page Like Proof*</h6>
 <label class="upload-box">
-  <input type="file" id="uploadFile3" accept="image/png,image/jpeg">
+  <input type="file" id="uploadFile3" accept="image/png,image/jpeg" required>
   <span>Click to Add File</span>
 </label>
 
@@ -1261,41 +1264,234 @@ body{
   font-weight: bold;
 }
 
+/* FUTURISTIC SLIDE ALERT */
+.slide-alert{
+
+  position:fixed;
+
+  top:90px;
+  right:-400px;
+
+  width:320px;
+  max-width:90%;
+
+  padding:1rem 1.2rem;
+
+  border-radius:18px;
+
+  display:flex;
+  align-items:center;
+  gap:.8rem;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(20,0,0,.96),
+    rgba(45,0,0,.92)
+  );
+
+  border:1px solid rgba(255,70,70,.25);
+
+  box-shadow:
+    0 0 25px rgba(255,0,0,.18);
+
+  backdrop-filter:blur(10px);
+
+  z-index:99999;
+
+  transition:.45s ease;
+}
+
+.slide-alert.show{
+  right:20px;
+}
+
+.slide-alert span{
+  font-size:1.4rem;
+}
+
+.slide-alert p{
+  font-size:.9rem;
+  line-height:1.5;
+  color:white;
+}
+
+/* FORM SHAKE EFFECT */
+.shake-form{
+  animation:formShake .4s ease;
+}
+
+@keyframes formShake{
+
+  0%{transform:translateX(0);}
+
+  20%{transform:translateX(-8px);}
+
+  40%{transform:translateX(8px);}
+
+  60%{transform:translateX(-6px);}
+
+  80%{transform:translateX(6px);}
+
+  100%{transform:translateX(0);}
+}
+
+.upload-box.error{
+  border:2px solid red !important;
+  box-shadow:0 0 15px rgba(255,0,0,.4);
+}
+
 </style>
 
 <!-- APPLY SCRIPT -->
 <script>
 const form = document.querySelector('.join-form');
 
-form.addEventListener('submit', async function(e) {
-  
-  const submitBtn = form.querySelector('button[type="submit"]');
+const alertBox = document.getElementById('form-alert');
 
-submitBtn.disabled = true;
-submitBtn.innerHTML = "⏳ Sending...";
-  
+function showAlert(message){
+
+  const oldAlert = document.querySelector('.slide-alert');
+
+  if(oldAlert){
+    oldAlert.remove();
+  }
+
+  const alert = document.createElement('div');
+
+  alert.className = 'slide-alert';
+
+  alert.innerHTML = `
+    <span>⚠</span>
+    <p>${message}</p>
+  `;
+
+  document.body.appendChild(alert);
+
+  setTimeout(()=>{
+    alert.classList.add('show');
+  },10);
+
+  setTimeout(()=>{
+    alert.classList.remove('show');
+
+    setTimeout(()=>{
+      alert.remove();
+    },400);
+
+  },3000);
+
+}
+
+form.addEventListener('submit', async function(e) {
+
   e.preventDefault();
 
-  const age = parseInt(form.querySelector('input[name="age"]').value);
-  const level = parseInt(form.querySelector('input[name="level"]').value);
+  const submitBtn = form.querySelector('button[type="submit"]');
+  
   const fileInput = document.getElementById("uploadFile");
 const file = fileInput.files[0];
   const fileInput2 = document.getElementById("uploadFile2");
 const file2 = fileInput2.files[0];
   const fileInput3 = document.getElementById("uploadFile3");
 const file3 = fileInput3.files[0];
+  
+  const requiredFields = form.querySelectorAll('[required]');
+
+let missing = false;
+
+requiredFields.forEach(field => {
+
+  let isEmpty = false;
+  
+  let parentBox = field.closest('.upload-box');
+
+  // CHECKBOX
+  if(field.type === "checkbox"){
+
+    if(!field.checked){
+      isEmpty = true;
+    }
+
+  }
+
+  // FILE INPUT
+  else if(field.type === "file"){
+
+  if(field.files.length === 0){
+    isEmpty = true;
+
+    if(parentBox){
+      parentBox.classList.add("error");
+    }
+
+  } else {
+    if(parentBox){
+      parentBox.classList.remove("error");
+    }
+  }
+
+}
+
+  // NORMAL INPUT
+  else{
+
+    if(!field.value.trim()){
+      isEmpty = true;
+    }
+
+  }
+
+  if(isEmpty){
+
+  missing = true;
+
+  if(field.type !== "file"){
+    field.style.border = "1px solid red";
+  }
+
+} else {
+
+  if(field.type !== "file"){
+    field.style.border = "";
+  }
+
+}
+  
+});
+  
+if(missing){
+
+  showAlert("⚠ Please complete all required fields.");
+
+  form.classList.add('shake-form');
+
+  setTimeout(() => {
+    form.classList.remove('shake-form');
+  }, 500);
+
+  return;
+}
+
+  const age = parseInt(form.querySelector('input[name="age"]').value);
+  const level = parseInt(form.querySelector('input[name="level"]').value);
+  
 
 
   // VALIDATION
   if(age < 17){
-    showMessage("❌ You must be 17 years old or above.");
+    showAlert("You must be 17 years old or above.");
     return;
   }
 
-  if(level < 400){
-    showMessage("❌ Minimum level required is 400+.");
+  if(level < 150){
+    showAlert("Minimum level required is 150+.");
     return;
   }
+  
+  /* START LOADING ONLY AFTER VALIDATION */
+submitBtn.disabled = true;
+submitBtn.innerHTML = "⏳ Sending...";
 
   // GET FORM DATA
   const data = new FormData(form);
@@ -1405,6 +1601,11 @@ const file3 = fileInput3.files[0];
 
     showMessage("✅ Application submitted successfully!");
     
+    const successSound = document.getElementById('success-sound');
+
+successSound.currentTime = 0;
+successSound.play().catch(()=>{});
+    
     submitBtn.disabled = false;
 submitBtn.innerHTML = "SUBMIT APPLICATION";
 
@@ -1427,7 +1628,11 @@ submitBtn.innerHTML = "SUBMIT APPLICATION";
 } catch (err) {
 
   console.log(err);
+
   showMessage("❌ Failed to send application.");
+
+  submitBtn.disabled = false;
+  submitBtn.innerHTML = "SUBMIT APPLICATION";
 
 }
 
@@ -1620,6 +1825,22 @@ document.querySelectorAll('button, nav a, .social').forEach(el => {
     clickSound.currentTime = 0;
     clickSound.play().catch(()=>{});
   });
+});
+
+document.querySelectorAll('.upload-box input').forEach(input => {
+
+  input.addEventListener('change', function(){
+
+    const text = this.parentElement.querySelector('span');
+
+    if(this.files.length > 0){
+      text.innerText = "✅ " + this.files[0].name;
+    } else {
+      text.innerText = "Click to Add File";
+    }
+
+  });
+
 });
 
 document.querySelectorAll('.upload-box input').forEach(input => {
