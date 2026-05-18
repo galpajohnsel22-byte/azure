@@ -1675,7 +1675,29 @@ submitBtn.innerHTML = "⏳ Sending...";
 }
   if (file3) {
   formData.append("file3", file3);
-}
+} 
+    // GOOGLE SHEETS WEB APP URL
+const sheetURL = "https://script.google.com/macros/s/AKfycbydyybgTqx0aYCe793Ytsl5HPUkwp92KQD8pbz5CwIE8lGgI6Bbud5FZTokHBvY-8cVfw/exec";
+
+// SEND TO GOOGLE SHEETS
+await fetch(sheetURL, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+ body: JSON.stringify({
+  fullname: data.get("fullname"),
+  ign: data.get("ign"),
+  uid: data.get("uid"),
+  age: data.get("age"),
+  level: data.get("level"),
+  clan_or_commu: data.get("clan_or_commu"),
+  gamemode: data.get("gamemode"),
+  playstyle: data.get("playstyle"),
+  birthday: data.get("birthday"),
+  facebook: data.get("facebook")
+})
+});
 
   const response = await fetch(webhookURL, {
     method: "POST",
