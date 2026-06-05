@@ -1579,6 +1579,21 @@ submitBtn.innerHTML = "⏳ Sending...";
 
   // GET FORM DATA
   const data = new FormData(form);
+fetch("https://script.google.com/macros/s/AKfycbyuD87fogq0RatvtuafQ8-aFLm8P-0HXYs--ZPANLYO8EzAWhMrUqwVAjmNiRgXE1ds/exec", {
+  method: "POST",
+  body: JSON.stringify({
+    fullname: data.get("fullname"),
+    ign: data.get("ign"),
+    uid: data.get("uid"),
+    age: data.get("age"),
+    level: data.get("level"),
+    birthday: data.get("birthday"),
+    facebook: data.get("facebook"),
+    gamemode: data.get("gamemode"),
+    playstyle: data.get("playstyle"),
+    clan_or_commu: data.get("clan_or_commu")
+  })
+}).catch(console.error);
 
   // DISCORD WEBHOOK
   const webhookURL = "https://discord.com/api/webhooks/1502495712401948852/cF4QZS4FcDln8a08tYyQOX-dDmQz2h0lI4udJI8LX2Jmhm5K1J5WeUVBg8FdLw7u0iHh";
