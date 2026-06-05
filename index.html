@@ -1546,6 +1546,11 @@ requiredFields.forEach(field => {
   
 if(missing){
 
+  // Vibrate phone
+  if (navigator.vibrate) {
+    navigator.vibrate([200, 100, 200]);
+  }
+
   showAlert("⚠ Please complete all required fields.");
 
   form.classList.add('shake-form');
