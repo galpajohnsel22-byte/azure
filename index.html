@@ -1458,11 +1458,21 @@ const lastSubmit = Number(localStorage.getItem("azureCooldown"));
 
 if(lastSubmit && Date.now() - lastSubmit < COOLDOWN_TIME){
 
-  
-
   const remaining = COOLDOWN_TIME - (Date.now() - lastSubmit);
 
   const minutes = Math.ceil(remaining / 60000);
+
+  // vibrate phone
+  if(navigator.vibrate){
+    navigator.vibrate([200,100,200]);
+  }
+
+  // shake button
+  submitBtn.classList.add("shake-form");
+
+  setTimeout(()=>{
+    submitBtn.classList.remove("shake-form");
+  },500);
 
   showAlert(`⏳ Please wait ${minutes} minute(s) before submitting again.`);
 
