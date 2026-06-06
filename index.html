@@ -1345,7 +1345,11 @@ body{
   box-shadow:0 0 15px rgba(255,0,0,.4);
 }
 
-
+.cooldown{
+  opacity:.6;
+  cursor:not-allowed;
+}
+  
 </style>
 
 <!-- APPLY SCRIPT -->
@@ -1383,7 +1387,7 @@ function startCooldownUI(remainingMs) {
 
   let wait = Math.floor(remainingMs / 1000);
 
-  submitBtn.disabled = true;
+  submitBtn.classList.add("cooldown");
 
   timer = setInterval(() => {
 
@@ -1458,23 +1462,17 @@ const lastSubmit = Number(localStorage.getItem("azureCooldown"));
 
 if(lastSubmit && Date.now() - lastSubmit < COOLDOWN_TIME){
 
-  const remaining = COOLDOWN_TIME - (Date.now() - lastSubmit);
-
-  const minutes = Math.ceil(remaining / 60000);
-
-  // vibrate phone
   if(navigator.vibrate){
     navigator.vibrate([200,100,200]);
   }
 
-  // shake button
-  submitBtn.classList.add("shake-form");
+  showAlert("⚠ You're on cooldown! Please wait before submitting again.");
+
+  form.classList.add("shake-form");
 
   setTimeout(()=>{
-    submitBtn.classList.remove("shake-form");
+    form.classList.remove("shake-form");
   },500);
-
-  showAlert(`⏳ Please wait ${minutes} minute(s) before submitting again.`);
 
   return;
 }
