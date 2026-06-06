@@ -906,7 +906,7 @@ JOIN NOW!
 </div>
 
 <div class="warning-box">
-⚠ Please ensure you meet the minimum requirements: Age 17+, Level 400+, and active player. If not applicable, type N/A.
+⚠ Please ensure you meet the minimum requirements: Age 17+, Level 150+, and active player. If not applicable, type N/A.
 </div>
 
 <form class="join-form" novalidate>
@@ -1612,6 +1612,13 @@ const sheetResult = await sheetResponse.json();
       color: 3447003,
 
       fields: [
+
+        {
+          name: "🆔 Application ID",
+          value: sheetResult.applicationId,
+          inline: true
+        },
+        
         {
           name: "👤 Full Name",
           value: data.get("fullname") || "N/A",
