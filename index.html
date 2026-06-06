@@ -1387,7 +1387,8 @@ function startCooldownUI(remainingMs) {
 
   let wait = Math.floor(remainingMs / 1000);
 
-  submitBtn.classList.add("cooldown");
+  submitBtn.disabled = true;
+submitBtn.classList.add("cooldown");;
 
   timer = setInterval(() => {
 
@@ -1402,7 +1403,9 @@ function startCooldownUI(remainingMs) {
     if (wait < 0) {
       clearInterval(timer);
       submitBtn.disabled = false;
+      submitBtn.classList.remove("cooldown");
       submitBtn.innerHTML = "SUBMIT APPLICATION";
+
       localStorage.removeItem("azureCooldown");
     }
 
