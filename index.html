@@ -2082,13 +2082,11 @@ document.querySelectorAll('.upload-box input').forEach(input => {
 
   const checkBtn=document.getElementById("checkStatusBtn");
 
-checkBtn.addEventListener("click",()=>{
+checkBtn.addEventListener("click", async ()=>{
 
 const id=document.getElementById("applicationId").value.trim();
 
-const result=document.getElementById("statusResult");
-
-if(id==""){
+if(!id){
 
 showAlert("⚠ Please enter your Application ID.");
 
@@ -2096,13 +2094,55 @@ return;
 
 }
 
+const result=document.getElementById("statusResult");
+
 result.style.display="block";
+
+result.innerHTML="🔍 Searching...";
+
+try{
+
+const res=await fetch(
+"https://script.google.com/macros/s/AKfycbzjsAvvEGClPz88tE5PB9qMOXKJip4XO-PDfXuNn7DsVI04FQo6uOeHKmLeMHrYWc1I/exec"+encodeURIComponent(id)
+);
+
+const data=await res.json();
+
+if(data.success){
 
 result.innerHTML=`
 
-<h2>🔍 Searching...</h2>
+<h2>✅ Application Found</h2>
+
+<p><b>ID:</b> ${data.id}</p>
+
+<p><b>Name:</b> ${data.name}</p>
+
+<p><b>IGN:</b> ${data.ign}</p>
+
+<h3>📋 Status: ${data.status}</h3>
 
 `;
+
+}else{
+
+result.innerHTML=`
+
+<h2>❌ Application Not Found</h2>
+
+`;
+
+}
+
+}catch(err){
+
+result.innerHTML=`
+
+<h2>❌ Failed to connect.</h2>
+
+`;
+
+}
 
 });
 
