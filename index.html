@@ -816,6 +816,7 @@ document.addEventListener('keydown', startMusic);
 <a href="#home" class="active">HOME</a>
 <a href="#management">MANAGEMENT</a>
 <a href="#apply">APPLY NOW!</a>
+<a href="#status">APPLICATION STATUS</a>
 
 </nav>
 
@@ -1349,6 +1350,44 @@ body{
   opacity:.6;
   cursor:not-allowed;
 }
+
+  #statusResult{
+
+margin-top:20px;
+
+padding:20px;
+
+border-radius:15px;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(0,183,255,.2);
+
+display:none;
+
+text-align:left;
+
+animation:fadeStatus .4s;
+}
+
+@keyframes fadeStatus{
+
+from{
+
+opacity:0;
+transform:translateY(15px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+
   
 </style>
 
@@ -1835,6 +1874,33 @@ function showMessage(text){
   
 </script>
 
+  <section class="section" id="status">
+
+<div class="form-header">
+<h1>APPLICATION STATUS</h1>
+<p>Track your Azure Xeno application.</p>
+</div>
+
+<div class="join-form">
+
+<input
+type="text"
+id="applicationId"
+placeholder="Application ID (ex. AX-0001)"
+>
+
+<button
+id="checkStatusBtn"
+class="btn ripple-btn">
+CHECK STATUS
+</button>
+
+<div id="statusResult"></div>
+
+</div>
+
+  </section>
+  
 <!-- FOOTER -->
 <footer>
 
@@ -2011,6 +2077,32 @@ document.querySelectorAll('.upload-box input').forEach(input => {
     }
 
   });
+
+});
+
+  const checkBtn=document.getElementById("checkStatusBtn");
+
+checkBtn.addEventListener("click",()=>{
+
+const id=document.getElementById("applicationId").value.trim();
+
+const result=document.getElementById("statusResult");
+
+if(id==""){
+
+showAlert("⚠ Please enter your Application ID.");
+
+return;
+
+}
+
+result.style.display="block";
+
+result.innerHTML=`
+
+<h2>🔍 Searching...</h2>
+
+`;
 
 });
 
