@@ -1584,7 +1584,7 @@ submitBtn.innerHTML = "⏳ Sending...";
 
   // GET FORM DATA
   const data = new FormData(form);
-fetch("https://script.google.com/macros/s/AKfycbyuD87fogq0RatvtuafQ8-aFLm8P-0HXYs--ZPANLYO8EzAWhMrUqwVAjmNiRgXE1ds/exec", {
+const sheetResponse = await fetch("https://script.google.com/macros/s/AKfycbzjsAvvEGClPz88tE5PB9qMOXKJip4XO-PDfXuNn7DsVI04FQo6uOeHKmLeMHrYWc1I/exec", {
   method: "POST",
   body: JSON.stringify({
     fullname: data.get("fullname"),
@@ -1598,7 +1598,9 @@ fetch("https://script.google.com/macros/s/AKfycbyuD87fogq0RatvtuafQ8-aFLm8P-0HXY
     playstyle: data.get("playstyle"),
     clan_or_commu: data.get("clan_or_commu")
   })
-}).catch(console.error);
+});
+
+const sheetResult = await sheetResponse.json();
 
   // DISCORD WEBHOOK
   const webhookURL = "https://discord.com/api/webhooks/1502495712401948852/cF4QZS4FcDln8a08tYyQOX-dDmQz2h0lI4udJI8LX2Jmhm5K1J5WeUVBg8FdLw7u0iHh";
@@ -1730,8 +1732,11 @@ const timer = setInterval(() => {
 
 }, 1000);
 
-    showMessage("✅ Application submitted successfully!");
-    
+    showMessage(
+`✅ Application Submitted!
+
+ID: ${sheetResult.applicationId}`
+);
     const successSound = document.getElementById('success-sound');
 
 successSound.currentTime = 0;
