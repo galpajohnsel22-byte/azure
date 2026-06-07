@@ -2102,11 +2102,12 @@ result.innerHTML="🔍 Searching...";
 
 try{
 
-const res=await fetch(
-"https://script.google.com/macros/s/AKfycbzjsAvvEGClPz88tE5PB9qMOXKJip4XO-PDfXuNn7DsVI04FQo6uOeHKmLeMHrYWc1I/exec"+encodeURIComponent(id)
+const res = await fetch(
+`https://script.google.com/macros/s/AKfycbzjsAvvEGClPz88tE5PB9qMOXKJip4XO-PDfXuNn7DsVI04FQo6uOeHKmLeMHrYWc1I/exec?id=${encodeURIComponent(id)}`
 );
 
-const data=await res.json();
+const json = await res.json();
+const data = Array.isArray(json) ? json[0] : json;
 
 if(data.success){
 
