@@ -2105,7 +2105,7 @@ result.innerHTML="🔍 Searching...";
 try{
 
 const res = await fetch(
-`https://script.google.com/macros/s/AKfycbzjsAvvEGClPz88tE5PB9qMOXKJip4XO-PDfXuNn7DsVI04FQo6uOeHKmLeMHrYWc1I/exec=id?${encodeURIComponent(id)}`
+`https://script.google.com/macros/s/AKfycbzjsAvvEGClPz88tE5PB9qMOXKJip4XO-PDfXuNn7DsVI04FQo6uOeHKmLeMHrYWc1I/exec?id=${encodeURIComponent(id)}`
 );
 
 const json = await res.json();
